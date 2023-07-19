@@ -4,9 +4,8 @@ const personVerification = require('../middlewares/personVerification');
 
 const people = express.Router();
 
-people.use(personVerification);
 
-people.post('/', async (req, res) => {
+people.post('/', personVerification, async (req, res) => {
   const person = req.body;
   try {
     const [result] = await peopleDB.insert(person);
@@ -18,6 +17,28 @@ people.post('/', async (req, res) => {
     res.status(500).json({
       message: 'Ocorreu um erro ao cadastrar uma pessoa'
     });
+  }
+});
+
+people.get('/', async (req, res) => {
+  try {
+    const [result] = await peopleDB.findAll();
+    res.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.sqlMessage });
+  }
+});
+
+people.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [[result]] = await peopleDB.findById(id);
+    if (!result) return res.status(404).json({ message: 'Pessoa não encontrada' });
+    res.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.sqlMessage });
   }
 });
 

@@ -52,4 +52,13 @@ describe('Testing people endpoints', function () {
     expect(response.status).to.equal(200);
     expect(response.body).to.deep.equal(peopleList);
   });
+
+  it('testing GET /people/:id', async () => {
+    sinon.stub(connection, 'execute').resolves([[peopleList[0]]]);
+
+    const response = await chai.request(app).get('/people/1');
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal(peopleList[0]);
+  });
 });
