@@ -19,7 +19,7 @@ describe('Testing people endpoint', function () {
       firstName: 'Luke',
       lastName: 'Skywalker',
       email: 'luke.skywalker@test.com',
-      phone: '9999-9999',
+      phone: '21999999999',
     });
 
     expect(response.status).to.equal(201);

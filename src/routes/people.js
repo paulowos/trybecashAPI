@@ -1,13 +1,15 @@
 const express = require('express');
 const peopleDB = require('../db/peopleDB');
+const personVerification = require('../middlewares/personVerification');
 
 const people = express.Router();
+
+people.use(personVerification);
 
 people.post('/', async (req, res) => {
   const person = req.body;
   try {
     const [result] = await peopleDB.insert(person);
-    console.log(result);
     res.status(201).json({
       message: `Pessoa cadastrada com sucesso com o id ${result.insertId}`
     });
