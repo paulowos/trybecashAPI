@@ -47,14 +47,14 @@ people.put('/:id', personVerification, async (req, res) => {
     const { id } = req.params;
     const person = req.body;
 
-    const [result] = await peopleDB.update(person, id);
+    const [result] = await peopleDB.update(id, person);
 
     if (result.affectedRows <= 0) return res.status(404).json({
       message: 'Pessoa não encontrada'
     });
 
     res.status(200).json({
-      message: `Pessoa com id ${id} atualizada com sucesso`
+      message: `Pessoa de id ${id} atualizada com sucesso`
     });
 
   } catch (err) {
@@ -75,7 +75,7 @@ people.delete('/:id', async (req, res) => {
     });
 
     res.status(200).json({
-      message: `Pessoa com id ${id} excluída com sucesso`
+      message: `Pessoa de id ${id} excluída com sucesso`
     });
   } catch (err) {
     res.status(500).json({

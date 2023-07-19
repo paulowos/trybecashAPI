@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha ./tests/*/*.test.js",
     "start": "node .",
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "start:env": "env $(cat .env) nodemon ."
   },
   "keywords": [],
   "author": "",
