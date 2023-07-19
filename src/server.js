@@ -11,5 +11,4 @@ app.listen(PORT, async () => {
   if (result) {
     console.log('MySQL connection OK');
   }
-})
-
+});
