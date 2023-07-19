@@ -24,7 +24,6 @@ const personVerification = (req, res, next) => {
     req.body = verification;
     next();
   } catch (err) {
-    console.log(err);
     const message = err.issues
       .map(err => err.message).join(', ');
     return res.status(400).json({ message });
