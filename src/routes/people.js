@@ -42,4 +42,26 @@ people.get('/:id', async (req, res) => {
   }
 });
 
+people.put('/:id', personVerification, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const person = req.body;
+
+    const [result] = await peopleDB.update(person, id);
+
+    if (result.affectedRows <= 0) return res.status(404).json({
+      message: 'Pessoa não encontrada'
+    });
+
+    res.status(200).json({
+      message: `Pessoa com id ${id} atualizada com sucesso`
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      message: err.sqlMessage
+    });
+  }
+});
+
 module.exports = people;
