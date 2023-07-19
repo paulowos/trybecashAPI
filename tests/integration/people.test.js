@@ -61,4 +61,23 @@ describe('Testing people endpoints', function () {
     expect(response.status).to.equal(200);
     expect(response.body).to.deep.equal(peopleList[0]);
   });
+
+  it('testing PUT /people/:id', async () => {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+    const response = await chai
+      .request(app)
+      .put('/people/1')
+      .send({
+        firstName: 'Lucão',
+        lastName: 'Andarilho dos céus',
+        email: 'lucao.andarilho@test.com',
+        phone: '21123456789'
+      });
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal({
+      message: 'Pessoa de id 1 atualizada com sucesso'
+    });
+  });
 });
