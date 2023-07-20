@@ -1,0 +1,32 @@
+{
+  "name": "para-fixar-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.js",
+  "scripts": {
+    "test": "mocha ./tests/*/*.test.js",
+    "start": "node .",
+    "dev": "nodemon .",
+    "start:env": "env $(cat .env) nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "4.3.7",
+    "chai-http": "4.4.0",
+    "mocha": "10.2.0",
+    "nodemon": "3.0.1",
+    "sinon": "15.2.0"
+  },
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.18.2",
+    "express-async-error": "0.0.2",
+    "express-rate-limit": "6.7.1",
+    "helmet": "7.0.0",
+    "morgan": "1.10.0",
+    "mysql2": "3.5.2",
+    "zod": "3.21.4"
+  }
+}

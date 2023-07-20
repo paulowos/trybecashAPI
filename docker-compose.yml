@@ -1,0 +1,36 @@
+version: '3'
+services:
+  node:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    container_name: trybecash_api
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 3001:3001
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    image: mysql:8.0.29
+    container_name: trybecash_database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: trybecashdb
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    volumes:
+      - ./trybecash_script.sql:/docker-entrypoint-initdb.d/trybecash_script.sql
